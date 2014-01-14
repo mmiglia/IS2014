@@ -14,9 +14,11 @@ public class UsaLista
 		System.out.println(l);
 		l.clear();
 
+		java.util.List<Integer> l2 = new java.util.LinkedList<Integer>();
+
 		for(int i = 0;i<argv.length;i++)
 		{
-			l.add(Integer.parseInt(argv[i]));
+			l2.add(Integer.parseInt(argv[i]));
 		}
 
 		Integer k = new Integer(0);
@@ -33,13 +35,14 @@ public class UsaLista
 		else
 			System.out.println("Sono diversi");
 
-		System.out.println(l);
-		java.util.ListIterator li = l.listIterator();
+		System.out.println(l2);
+		java.util.ListIterator<Integer> li = l2.listIterator();
 		Integer j = 0;
 		System.out.println(j.hashCode());
 		while(li.hasNext())
 		{
-			j += (Integer)li.next();
+			//j += (Integer)li.next();
+			j += li.next();
 			System.out.println(j.hashCode());
 		}
 		System.out.println(j);
