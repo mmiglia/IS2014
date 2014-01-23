@@ -1,29 +1,24 @@
 package prodCons;
 
-public class Prod
+public class Prod2
 implements Runnable
 {
 	Buffer2<String> b = new Buffer2<String>();
 
 	public static void main(String[] argv)
 	{
-		(new Prod()).exec(argv);
+		(new Prod2()).exec(argv);
 
 	}
 
 	void exec(String[] argv)
 	{
-		(new Thread(this)).start();//faccio partire il consumatore
-
-		//agisco da produttore
-		for(int i=0;i<argv.length;i++)
+		int k = Integer.parseInt(argv[0]);
+		for(int i = 0;i<k;i++)
 		{
-			b.put(argv[i]);
+			(new Thread(this)).start();//faccio partire il consumatore
 		}
-	}
 
-	public void run()
-	{
 		while(true)
 		{
 			String msg = b.remove();
@@ -36,6 +31,17 @@ implements Runnable
 			{
 				ie.printStackTrace();
 			}
+		}
+	}
+
+	public void run()
+	{
+		int i = 0;
+		System.out.println("Consumatore");
+		while(true)
+		{
+			//agisco da produttore
+			b.put(Thread.currentThread().getName() + " " + (i++));
 		}
 	}
 }
