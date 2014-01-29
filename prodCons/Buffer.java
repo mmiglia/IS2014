@@ -3,6 +3,7 @@ package prodCons;
 public class Buffer<E>
 {
 	protected E storage;
+	protected Thread t;
 
 	public void put(E elem)
 	{
@@ -14,7 +15,15 @@ public class Buffer<E>
 				{
 					//adesso c'e' spazio
 					storage = elem;
+					if(t!=null)
+					{
+						t.interrupt();
+					}
 					break;
+				}
+				else
+				{
+					t = Thread.currentThread();
 				}
 			}
 			System.out.println("put sleep");
@@ -41,7 +50,15 @@ public class Buffer<E>
 				{
 					retval = storage;
 					storage = null;
+					if(t!=null)
+					{
+						t.interrupt();
+					}
 					break;
+				}
+				else
+				{
+					t = Thread.currentThread();
 				}
 			}
 			System.out.println("remove sleep");
