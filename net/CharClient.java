@@ -2,6 +2,7 @@ package net;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class CharClient
 {
@@ -18,7 +19,7 @@ public class CharClient
 			Socket s = new Socket("localhost", port);
 			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			Scanner br = new Scanner(s.getInputStream());
 			PrintStream ps = new PrintStream(s.getOutputStream());
 
 			String line = null;
@@ -28,7 +29,7 @@ public class CharClient
 				ps.println(line);
 
 				System.out.println("Leggo dal server");
-				line = br.readLine();
+				line = br.nextLine();
 				System.out.println("Il server mi ha risposto <" + line + ">");
 			}
 		}
