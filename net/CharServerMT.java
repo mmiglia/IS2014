@@ -83,6 +83,7 @@ public class CharServerMT
 			long waitingTime = 10000;
 			while(true)
 			{
+				boolean goAway = false;
 				s = null;
 				BufferedReader br = null;
 				PrintStream ps = null;
@@ -90,26 +91,26 @@ public class CharServerMT
 				{
 					while(q.isEmpty())
 					{
+						if(goAway)
+						{
+							//sono andato in timeout
+							System.out.println("Handler dies");
+							return;
+						}
 						try
 						{
 							csmt.idleHandler++;
-							long before = System.currentTimeMillis();
 							q.wait(waitingTime);
-							long now = System.currentTimeMillis();
 							csmt.idleHandler--;
-							if( (now-before) >= waitingTime)
-							{
-								//sono andato in timeout
-								System.out.println("Handler dies");
-								return;
-							}
 						}
 						catch(InterruptedException ie)
 						{
 							ie.printStackTrace();
 						}
+						goAway = true;
 					}
 					s = q.remove(0);
+					goAway = false;
 				}
 
 				try
