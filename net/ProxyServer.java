@@ -9,6 +9,7 @@ public class ProxyServer
 implements Runnable
 {
 	final int NUM_DEM = 3;
+	java.util.concurrent.atomic.AtomicInteger counter = new java.util.concurrent.atomic.AtomicInteger(0);
 
 	ServerSocket ss;
 	List<Socket> queue;
@@ -78,6 +79,7 @@ implements Runnable
 
 	public void run()
 	{
+		System.out.println("Servo il Proxy # " + counter.incrementAndGet());
 		Socket s = null;
 		ObjectOutputStream oos = null;
 		ObjectInputStream ois = null;
@@ -93,10 +95,13 @@ implements Runnable
 
 			while(true)
 			{
+				/* Pre multiplexaggio canale da e verso client
 				Executable ex = (Executable)ois.readObject();
 				List<Serializable> l = (List<Serializable>)ois.readObject();
+				*/
+				Request r = (Request)ois.readObject();
+				r.oos = oos;
 
-				Request r = new Request(ex, l, oos);
 				synchronized(rq)
 				{
 					rq.add(r);
@@ -130,19 +135,9 @@ implements Runnable
 				ioe2.printStackTrace();
 			}
 		}
-	}
-
-	class Request
-	{
-		Executable ex;
-		List<Serializable> p;
-		ObjectOutputStream oos;
-
-		Request(Executable e, List<Serializable> theP, ObjectOutputStream o)
+		finally
 		{
-			ex = e;
-			p = theP;
-			oos = o;
+			System.out.println("Chiudo una connessione, adesso servo solo " + counter.decrementAndGet() + " proxy");
 		}
 	}
 
@@ -177,11 +172,16 @@ implements Runnable
 					r = q.remove(0);
 				}
 
-				Serializable result = r.ex.execute(r.p);
+				r.result = r.ex.execute(r.p);
 				try
 				{
-					r.oos.writeObject(result);
-					r.oos.flush();
+					ObjectOutputStream myOos = r.oos;
+					r.oos = null;
+					synchronized(myOos)
+					{
+						myOos.writeObject(r);
+						myOos.flush();
+					}
 				}
 				catch(IOException ioe)
 				{
