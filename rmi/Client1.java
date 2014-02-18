@@ -13,6 +13,12 @@ public class Client1
 
 		t1.metodo1();
 		System.out.println(t1.contaChiamate());
+		t1.metodo1();
+		System.out.println(t1.contaChiamate());
+		t1.metodo1();
+		System.out.println(t1.contaChiamate());
+		t1.metodo1();
+		System.out.println(t1.contaChiamate());
 		t1.incrementa(ih);
 		System.out.println(ih);
 		ih.val = 2;
@@ -20,5 +26,7 @@ public class Client1
 		t1.incrementa(ih);
 		System.out.println(ih);
 		System.out.println(t1.contaChiamate());
+
+		t1.nonFunzionera();
 	}
 }

@@ -9,10 +9,11 @@ public final class Test1Impl_Skel
     private static final java.rmi.server.Operation[] operations = {
 	new java.rmi.server.Operation("int contaChiamate()"),
 	new java.rmi.server.Operation("void incrementa(rmi.IntHolder)"),
-	new java.rmi.server.Operation("void metodo1()")
+	new java.rmi.server.Operation("void metodo1()"),
+	new java.rmi.server.Operation("int nonFunzionera()")
     };
     
-    private static final long interfaceHash = 6587757865878454575L;
+    private static final long interfaceHash = -6165792355827836073L;
     
     public java.rmi.server.Operation[] getOperations() {
 	return (java.rmi.server.Operation[]) operations.clone();
@@ -67,6 +68,19 @@ public final class Test1Impl_Skel
 	    server.metodo1();
 	    try {
 		call.getResultStream(true);
+	    } catch (java.io.IOException e) {
+		throw new java.rmi.MarshalException("error marshalling return", e);
+	    }
+	    break;
+	}
+	    
+	case 3: // nonFunzionera()
+	{
+	    call.releaseInputStream();
+	    int $result = server.nonFunzionera();
+	    try {
+		java.io.ObjectOutput out = call.getResultStream(true);
+		out.writeInt($result);
 	    } catch (java.io.IOException e) {
 		throw new java.rmi.MarshalException("error marshalling return", e);
 	    }

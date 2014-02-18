@@ -10,10 +10,11 @@ public final class Test1Impl_Stub
     private static final java.rmi.server.Operation[] operations = {
 	new java.rmi.server.Operation("int contaChiamate()"),
 	new java.rmi.server.Operation("void incrementa(rmi.IntHolder)"),
-	new java.rmi.server.Operation("void metodo1()")
+	new java.rmi.server.Operation("void metodo1()"),
+	new java.rmi.server.Operation("int nonFunzionera()")
     };
     
-    private static final long interfaceHash = 6587757865878454575L;
+    private static final long interfaceHash = -6165792355827836073L;
     
     // constructors
     public Test1Impl_Stub() {
@@ -82,6 +83,32 @@ public final class Test1Impl_Stub
 	    java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 2, interfaceHash);
 	    ref.invoke(call);
 	    ref.done(call);
+	} catch (java.lang.RuntimeException e) {
+	    throw e;
+	} catch (java.rmi.RemoteException e) {
+	    throw e;
+	} catch (java.lang.Exception e) {
+	    throw new java.rmi.UnexpectedException("undeclared checked exception", e);
+	}
+    }
+    
+    // implementation of nonFunzionera()
+    public int nonFunzionera()
+	throws java.rmi.RemoteException
+    {
+	try {
+	    java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 3, interfaceHash);
+	    ref.invoke(call);
+	    int $result;
+	    try {
+		java.io.ObjectInput in = call.getInputStream();
+		$result = in.readInt();
+	    } catch (java.io.IOException e) {
+		throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+	    } finally {
+		ref.done(call);
+	    }
+	    return $result;
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
 	} catch (java.rmi.RemoteException e) {

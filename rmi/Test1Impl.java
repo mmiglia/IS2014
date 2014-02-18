@@ -16,7 +16,16 @@ implements Test1
 
 	public void metodo1() throws java.rmi.RemoteException
 	{
+		System.out.println(Thread.currentThread().getName());
 		int tmp = count;
+		try
+		{
+			Thread.sleep(10000);
+		}
+		catch(InterruptedException ie)
+		{
+			ie.printStackTrace();
+		}
 		System.out.println("Chiamato metodo1. " + tmp + "esima chiamata");
 		tmp++;
 		count = tmp;
@@ -39,6 +48,11 @@ implements Test1
 		tmp+= ih.val;
 		ih.val = tmp;
 		count = tmp;
+	}
+
+	public int nonFunzionera() throws RemoteException
+	{
+		throw new RuntimeException();
 	}
 
 	public static void main(String[] argv)
