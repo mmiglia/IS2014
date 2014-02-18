@@ -7,19 +7,26 @@ public final class Test1Impl_Stub
     extends java.rmi.server.RemoteStub
     implements rmi.Test1, java.rmi.Remote
 {
-    private static final java.rmi.server.Operation[] operations = {
-	new java.rmi.server.Operation("int contaChiamate()"),
-	new java.rmi.server.Operation("void incrementa(rmi.IntHolder)"),
-	new java.rmi.server.Operation("void metodo1()"),
-	new java.rmi.server.Operation("int nonFunzionera()")
-    };
+    private static final long serialVersionUID = 2;
     
-    private static final long interfaceHash = -6165792355827836073L;
+    private static java.lang.reflect.Method $method_contaChiamate_0;
+    private static java.lang.reflect.Method $method_incrementa_1;
+    private static java.lang.reflect.Method $method_metodo1_2;
+    private static java.lang.reflect.Method $method_nonFunzionera_3;
+    
+    static {
+	try {
+	    $method_contaChiamate_0 = rmi.Test1.class.getMethod("contaChiamate", new java.lang.Class[] {});
+	    $method_incrementa_1 = rmi.Test1.class.getMethod("incrementa", new java.lang.Class[] {rmi.IntHolder.class});
+	    $method_metodo1_2 = rmi.Test1.class.getMethod("metodo1", new java.lang.Class[] {});
+	    $method_nonFunzionera_3 = rmi.Test1.class.getMethod("nonFunzionera", new java.lang.Class[] {});
+	} catch (java.lang.NoSuchMethodException e) {
+	    throw new java.lang.NoSuchMethodError(
+		"stub class initialization failed");
+	}
+    }
     
     // constructors
-    public Test1Impl_Stub() {
-	super();
-    }
     public Test1Impl_Stub(java.rmi.server.RemoteRef ref) {
 	super(ref);
     }
@@ -31,18 +38,8 @@ public final class Test1Impl_Stub
 	throws java.rmi.RemoteException
     {
 	try {
-	    java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 0, interfaceHash);
-	    ref.invoke(call);
-	    int $result;
-	    try {
-		java.io.ObjectInput in = call.getInputStream();
-		$result = in.readInt();
-	    } catch (java.io.IOException e) {
-		throw new java.rmi.UnmarshalException("error unmarshalling return", e);
-	    } finally {
-		ref.done(call);
-	    }
-	    return $result;
+	    Object $result = ref.invoke(this, $method_contaChiamate_0, null, 7958343604458563678L);
+	    return ((java.lang.Integer) $result).intValue();
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
 	} catch (java.rmi.RemoteException e) {
@@ -57,15 +54,7 @@ public final class Test1Impl_Stub
 	throws java.rmi.RemoteException
     {
 	try {
-	    java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 1, interfaceHash);
-	    try {
-		java.io.ObjectOutput out = call.getOutputStream();
-		out.writeObject($param_IntHolder_1);
-	    } catch (java.io.IOException e) {
-		throw new java.rmi.MarshalException("error marshalling arguments", e);
-	    }
-	    ref.invoke(call);
-	    ref.done(call);
+	    ref.invoke(this, $method_incrementa_1, new java.lang.Object[] {$param_IntHolder_1}, -1144010774823963278L);
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
 	} catch (java.rmi.RemoteException e) {
@@ -80,9 +69,7 @@ public final class Test1Impl_Stub
 	throws java.rmi.RemoteException
     {
 	try {
-	    java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 2, interfaceHash);
-	    ref.invoke(call);
-	    ref.done(call);
+	    ref.invoke(this, $method_metodo1_2, null, 7863018598788240299L);
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
 	} catch (java.rmi.RemoteException e) {
@@ -97,18 +84,8 @@ public final class Test1Impl_Stub
 	throws java.rmi.RemoteException
     {
 	try {
-	    java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 3, interfaceHash);
-	    ref.invoke(call);
-	    int $result;
-	    try {
-		java.io.ObjectInput in = call.getInputStream();
-		$result = in.readInt();
-	    } catch (java.io.IOException e) {
-		throw new java.rmi.UnmarshalException("error unmarshalling return", e);
-	    } finally {
-		ref.done(call);
-	    }
-	    return $result;
+	    Object $result = ref.invoke(this, $method_nonFunzionera_3, null, -8693167216356961471L);
+	    return ((java.lang.Integer) $result).intValue();
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
 	} catch (java.rmi.RemoteException e) {
