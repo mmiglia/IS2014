@@ -9,6 +9,9 @@ implements BarrierSync, Runnable
 	Set<Thread> participants = new HashSet<Thread>();
 	boolean running = false;
 	int counter = 0;
+	int counter2 = 0;
+	boolean primaFaseCompleta = false;
+	boolean secondaFaseCompleta = false;
 
 	/**
 	* Metodo per registrare un partecipante al gruppo. Il partecipante e' il chiamante, non si possono registrare altri.
@@ -70,7 +73,7 @@ implements BarrierSync, Runnable
 				iter.remove();
 			}
 		}
-		while(counter < participants.size())
+		while(counter < participants.size() && !primaFaseCompleta)
 		{
 			try
 			{
@@ -81,7 +84,27 @@ implements BarrierSync, Runnable
 				ie.printStackTrace();
 			}
 		}
+		primaFaseCompleta = true;
+		counter--;
 		notifyAll();
+		secondaFaseCompleta = false;
+
+		counter2++;
+		while(counter2 < participants.size() && !secondaFaseCompleta)
+		{
+			try
+			{
+				wait();
+			}
+			catch(InterruptedException ie)
+			{
+				ie.printStackTrace();
+			}
+		}
+		secondaFaseCompleta = true;
+		counter2--;
+		notifyAll();
+		primaFaseCompleta = false;
 	}
 
 	public void run()

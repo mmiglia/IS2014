@@ -92,24 +92,27 @@ implements Runnable
 		{
 			ie.printStackTrace();
 		}
-		System.out.println("Thread <" + name + "> aspetto un po' prima di fare la barrierSync");
-		try
+		while(true)
 		{
-			Thread.sleep(1000+r.nextInt(5000));
+			System.out.println("Thread <" + name + "> aspetto un po' prima di fare la barrierSync");
+			try
+			{
+				Thread.sleep(r.nextInt(5000));
+			}
+			catch(InterruptedException ie)
+			{
+				ie.printStackTrace();
+			}
+			System.out.println("Thread <" + name + "> eseguo la barrierSync");
+			try
+			{
+				bs.barrierSync();
+			}
+			catch(BarrierSyncException bse)
+			{
+				bse.printStackTrace();
+			}
+			System.out.println("Thread <" + name + "> liberi tutti");
 		}
-		catch(InterruptedException ie)
-		{
-			ie.printStackTrace();
-		}
-		System.out.println("Thread <" + name + "> eseguo la barrierSync");
-		try
-		{
-			bs.barrierSync();
-		}
-		catch(BarrierSyncException bse)
-		{
-			bse.printStackTrace();
-		}
-		System.out.println("Thread <" + name + "> liberi tutti");
 	}
 }
