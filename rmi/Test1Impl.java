@@ -68,6 +68,7 @@ implements Test1
 			Test1Impl t1 = new Test1Impl();
 
 			java.rmi.Naming.rebind(name, t1);
+			java.rmi.Naming.rebind("fast", new Fast());
 		}
 		catch(RemoteException | java.net.MalformedURLException re)
 		{
